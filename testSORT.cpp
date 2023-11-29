@@ -1,43 +1,49 @@
 #include<bits/stdc++.h>
 #define max 10
 using namespace std;
-int nhapmang(int a[max][max], int &n, int &m){
-    for (int i=0;i<n;i++){
-        for (int j=0;j<m;j++){
-            cin>>a[i][j];
-        }
-    }
-}
-int max_row(int a[max][max], int n, int m){
-    for(int i=0;i<n;i++){
-        int maxium=INT_MIN;
-        int row=0;
-        for(int j=0;j<m;j++){
-            if(a[i][j]>maxium){
-                maxium=a[i][j];
-                row=j;
-            }
-        }
-        int cnt=0;
-        for (int k=0;k<n;k++){
-            if(maxium < a[k][row]){
-                cnt++;
-            }
-        }
-        if(cnt==n-1){
-            cout<<maxium;
-        }
-    }
-
-}
+// int nhapmang(int a[max][max], int &n, int &m){
+//     for (int i=0;i<n;i++){
+//         for (int j=0;j<m;j++){
+//             cin>>a[i][j];
+//         }
+//     }
+// }
 int main(){
-    int n,m; cin>>n>>m;
-    int a[max][max];
-    nhapmang(a,n,m);
-    max_row(a,n,m);
+    int n; cin>>n; 
+    int a[n][n];
+    // nhapmang(a, n,m);
+    int cnt=1;
+    int h1=0, h2=n-1, c1=0, c2=n-1;
+    while(h1<=h2 && c1<=c2){
+        for( int i=c1;i<=c2;i++){
+            a[h1][i]=cnt;
+            cnt++;
+        }
+        h1++;
+        for( int i=h1;i<=h2;i++){
+            a[i][c2]=cnt;
+            cnt++;
+        }
+        --c2;
+        if(c1<=c2){
+        for (int i=c2;i>=c1;i--){
+            a[h2][i]=cnt;
+            cnt++;
+        }
+        h2--;
+        }
+        if(h1<=h2){
+        for(int i=h2;i>=h1;i--){
+            a[i][c1]=cnt;
+            cnt++;
+        }
+        c1++;
+        }
+    }
+    for (int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cout<<a[i][j]<<" ";
+        }
+        cout<<endl;
+    }
 }
-
-// 3 4
-// 1 2 3 4
-// 4 2 5 6
-// 2 7 4 5
